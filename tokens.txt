@@ -25,10 +25,4 @@
 <3,6,23,NUMBER>
 <},6,25,RC>
 <;,6,26,SPEC. SYM.>
-<int,7,5,KEYWORD>
-<b,7,9,IDENTIFIER>
-<;,7,10,SPEC. SYM.>
-<double,8,5,KEYWORD>
-<c,8,12,IDENTIFIER>
-<;,8,13,SPEC. SYM.>
-<},10,2,RC>
+<},7,2,RC>
