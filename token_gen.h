@@ -47,7 +47,7 @@ token* makeToken(char name[], int r, int c, int type, int len){
     t->type = type;
 	t->arg_no = -99;
 	t->typestr = '\0';
-	t->tokensize = -99;
+	t->tokensize = 1;
 	t->retType = '\0';
 	t->arg_name = (char*)malloc(50*sizeof(char));
     return t;
@@ -178,6 +178,20 @@ token* getNextToken(FILE* f){
 		return makeToken(buf, row, col-len+1, 10, len);
     }
 
+	else if(c == '[') {
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 15, len);
+	}
+
+	else if(c == ']') {
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 16, len);
+	}
+
     else if(c == ')'){
 		col++;
 		buf[len++] = c;
@@ -282,4 +296,6 @@ token* getNextToken(FILE* f){
 12: {
 13: }
 14: FUNC
+15: [
+16: ]
 */

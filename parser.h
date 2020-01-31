@@ -4,7 +4,7 @@ int datatypesize[5] = {sizeof(int), sizeof(char), sizeof(float),sizeof(double), 
 int bracket = 0;
 void parser(FILE* fr, FILE* fw) {
     for(;;) {
-        token *s,*t,*u,*v,*w;
+        token *s,*t,*u,*v,*w,*x, *y;
 		t = getNextToken(fr);
 		if(t->type==-1)
 			break;
@@ -35,7 +35,8 @@ void parser(FILE* fr, FILE* fw) {
                         for(int i=0; i<5; i++) {
                             if(!strcmp(v->lexemename, datatype[i])) {
                                 w->typestr = v->lexemename;
-                                w->tokensize = datatypesize[i];
+                                w->tokensize = (w->tokensize)*(datatypesize[i]);
+                                break;
                             }
                         }
                         w->scope = 'L';
@@ -49,11 +50,62 @@ void parser(FILE* fr, FILE* fw) {
                     s->typestr = "FUNC";
                     strcpy(s->arg_name,buff);
                     s->arg_no = arg_count;
+                    s->tokensize = -99;
                     s->retType = t->lexemename;
                     s->type = 14;
                     s->scope = 'G';
                     INSERT(ptrToObjToken(s));
 
+
+
+                }
+                else if(u->type == 15) {
+                    while((x = getNextToken(fr)) && x->type == 0);
+                    if(x->type == 8) {
+                       
+                        int num = atoi(x->lexemename);
+                        s->tokensize = num;
+                        for(int i=0; i<5; i++) {
+                            if(!strcmp(t->lexemename, datatype[i])) {
+                                s->typestr = strcat(t->lexemename, " array");
+                                s->tokensize = (s->tokensize)*(datatypesize[i]);
+                                break;
+                            }
+                        }
+                        s->type = 2;
+                        if(bracket == 0) s->scope = 'G';
+                        else s->scope = 'L';
+                        INSERT(ptrToObjToken(s));
+
+
+
+                    }
+                    else if(x->type == 16) {
+                        while((x = getNextToken(fr)) && x->type != 12);
+                        int num = 0;
+                        
+                        while(x->type != 13) {
+                            while((x = getNextToken(fr)) && x->type == 0);
+                            printf("%s %d\n", x->lexemename, x->type);
+                            if(x->type == 5 || x->type == 8) {
+                                num++;
+                            }
+                        }
+                        printf("%d", num);
+                        s->tokensize = num;
+                        for(int i=0; i<5; i++) {
+                            if(!strcmp(t->lexemename, datatype[i])) {
+                                s->typestr = strcat(t->lexemename, " array");
+                                s->tokensize = (s->tokensize)*(datatypesize[i]);
+                                break;
+                            }
+                        }
+                        s->type = 2;
+                        if(bracket == 0) s->scope = 'G';
+                        else s->scope = 'L';
+                        INSERT(ptrToObjToken(s));
+
+                    }
 
 
                 }
@@ -63,7 +115,7 @@ void parser(FILE* fr, FILE* fw) {
                     for(int i=0; i<5; i++) {
                         if(!strcmp(t->lexemename, datatype[i])) {
                             s->typestr = t->lexemename;
-                            s->tokensize = datatypesize[i];
+                            s->tokensize = (s->tokensize)*(datatypesize[i]);
                             }
                         }
                     if(bracket == 0) s->scope = 'G';
@@ -77,7 +129,7 @@ void parser(FILE* fr, FILE* fw) {
                 
             }
             else {
-                //Put it as a keyword
+                fprintf(fw, "%c%s%c%d%c%d%c%d%c\n", '<', t->lexemename, ',', t->rw, ',', t->cl, ',', t->type, '>');
             }
             
 
@@ -105,4 +157,6 @@ void parser(FILE* fr, FILE* fw) {
 12: {
 13: }
 14: FUNC
+15: [
+16: ]
 */
