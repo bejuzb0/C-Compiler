@@ -17,7 +17,7 @@ void Initialize() {
 }
 
 void Display(){
-	printf("Name\tType\tSize\tRet Type\tScope\tArgs\n");
+	printf("Name\tType\tSize\tRet Type\tScope\tArgs\tArgsName\n");
 	for(int i=0; i<80; i++) {
 		printf("-");
 	}
@@ -27,7 +27,7 @@ void Display(){
 		if(ele == NULL)
 			continue;
 		while(ele) {
-			printf("%s\t%s\t%d\t%s\t\t%c\t%d\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no);
+			printf("%s\t%s\t%d\t%s\t\t%c\t%d\t%s\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no, ele->tok.arg_name == NULL? "No args" :ele->tok.arg_name );
 			ele = ele->next;
 		}
 	}
@@ -88,5 +88,6 @@ token ptrToObjToken(token *tk) {
     t.tokensize = tk->tokensize;
     t.retType = tk->retType;
     t.typestr = tk->typestr;
+    t.arg_name = tk->arg_name;
     return t;
 }

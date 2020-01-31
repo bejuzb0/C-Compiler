@@ -24,6 +24,8 @@ void parser(FILE* fr, FILE* fw) {
                 if(u->type == 10) { //(
                     //is a function
                     int arg_count = 0;
+                    char buff[50];
+                    memset(buff, '\0', 50);
                     
                     while((v = getNextToken(fr)) && v->type != 11) {
                         if(v->type == 0)
@@ -36,11 +38,16 @@ void parser(FILE* fr, FILE* fw) {
                                 w->tokensize = datatypesize[i];
                             }
                         }
+                        w->scope = 'L';
                         INSERT(ptrToObjToken(w));
+                        strcat(buff, " ");
+                        strcat(buff, w->lexemename);
                         arg_count++;
                     }
+                    
                     fprintf(fw, "%c%s%c%d%c%d%c%d%c\n", '<', v->lexemename, ',', v->rw, ',', v->cl, ',', v->type, '>');
                     s->typestr = "FUNC";
+                    strcpy(s->arg_name,buff);
                     s->arg_no = arg_count;
                     s->retType = t->lexemename;
                     s->type = 14;

@@ -10,6 +10,7 @@ typedef struct A {
 	int tokensize;
 	char scope;
 	int arg_no;
+	char *arg_name;
 } token;
 
 char keyword[32][15] = {	"auto", "break", "case", "char", "const",
@@ -48,6 +49,7 @@ token* makeToken(char name[], int r, int c, int type, int len){
 	t->typestr = '\0';
 	t->tokensize = -99;
 	t->retType = '\0';
+	t->arg_name = (char*)malloc(50*sizeof(char));
     return t;
 }
 
