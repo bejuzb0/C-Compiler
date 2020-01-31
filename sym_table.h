@@ -17,7 +17,7 @@ void Initialize() {
 }
 
 void Display(){
-	printf("Name\tType\tSize\tRet Type\tScope\n");
+	printf("Name\tType\tSize\tRet Type\tScope\tArgs\n");
 	for(int i=0; i<80; i++) {
 		printf("-");
 	}
@@ -27,7 +27,7 @@ void Display(){
 		if(ele == NULL)
 			continue;
 		while(ele) {
-			printf("%s\t%s\t%d\t%s\t\t%c\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope);
+			printf("%s\t%s\t%d\t%s\t\t%c\t%d\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no);
 			ele = ele->next;
 		}
 	}

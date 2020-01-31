@@ -61,6 +61,8 @@ token* getNextToken(FILE* f){
 
 	if(c == EOF)
 		return makeToken(buf, 0, 0, -1, 0);
+	if( c == ',')
+		return makeToken(buf, 0, 0, 0, 0);
     
  
     if(isalpha(c) || c=='_'){
@@ -86,13 +88,27 @@ token* getNextToken(FILE* f){
 		buf[len++] = c;
 		c = getc(f);
 		col++;
-		if(isdigit(c)){
+		if(isdigit(c) || c == 'x' || c == 'X'){
+			if( c == 'x'  || c == 'X') {
+				col++;
+				buf[len++] = c;
+				c = getc(f);
+				while(isdigit(c)) {
+					buf[len++] = c;
+					col++;
+					c = getc(f);
+				}
+				buf[len] = '\0';
+				return makeToken(buf, row, col-len+1, 8, len);
+			}
+
             while(isdigit(c)){
                 buf[len++] = c;
                 c = getc(f);
                 col++;
             }
             if(c == '.'){
+				buf[len++] = c;
                 c = getc(f);
 		        col++;
                 while(isdigit(c)){
@@ -105,6 +121,16 @@ token* getNextToken(FILE* f){
             }
             else if(c == 'E' || c == 'e')
                 exp_flag = 1;
+			else if(c == 'x' || c == 'X') {
+				buf[len++] = c;
+				col++;
+				c = getc(f);
+				while(isdigit(c)) {
+					buf[len++] = c;
+					c = getc(f);
+					col++;
+				}
+			}
             if(exp_flag){
                 c = getc(f);
 		        col++;
