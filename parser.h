@@ -2,7 +2,7 @@
 char datatype[5][20] = {"int", "char", "float", "double", "long"};
 int datatypesize[5] = {sizeof(int), sizeof(char), sizeof(float),sizeof(double), sizeof(long)};
 
-char type[20][50] = {"KEYWORD", "IDENTIFIER", "RELATIONAL", "ASSIGNMENT", "ARITHMETIC", "LOGICAL", "SPEC. SYM.", "NUMBER", "STRING", "LR", "RR", "LC", "RC", "LS", "RS"};
+char type[20][50] = {"KEYWORD", "IDENTIFIER", "RELATIONAL", "ASSIGNMENT", "ARITHMETIC", "LOGICAL", "SPEC. SYM.", "NUMBER", "STRING", "LR", "RR", "LC", "RC", "FUNC", "LS", "RS", "CREMENT"};
 
 
 int bracket = 0;
@@ -14,8 +14,14 @@ void parser(FILE* fr, FILE* fw) {
 			break;
 		else if(t->type == 0)
 			continue;
-        else if(t->type == 12) bracket++;
-        else if(t->type == 13) bracket--;
+        else if(t->type == 12) {
+            bracket++;
+            fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', t->lexemename, ',', t->rw, ',', t->cl, ',', type[t->type-1], '>');
+        }
+        else if(t->type == 13) {
+            bracket--;
+            fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', t->lexemename, ',', t->rw, ',', t->cl, ',', type[t->type-1], '>');
+        }
 		else if(t->type == 1) { // int
             fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', t->lexemename, ',', t->rw, ',', t->cl, ',', type[t->type-1], '>');
             while((s = getNextToken(fr)) && s->type ==0);
@@ -65,6 +71,7 @@ void parser(FILE* fr, FILE* fw) {
                 }
                 else if(u->type == 15) {
                     while((x = getNextToken(fr)) && x->type == 0);
+                    fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
                     if(x->type == 8) {
                        
                         int num = atoi(x->lexemename);
@@ -85,17 +92,22 @@ void parser(FILE* fr, FILE* fw) {
 
                     }
                     else if(x->type == 16) {
-                        while((x = getNextToken(fr)) && x->type != 12);
+                        while((x = getNextToken(fr)) && x->type != 12) {
+                            if(x->type != 0)
+                                fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
+                        }
+                        fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
                         int num = 0;
                         
                         while(x->type != 13) {
                             while((x = getNextToken(fr)) && x->type == 0);
+                            fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
                             //printf("%s %d\n", x->lexemename, x->type);
                             if(x->type == 5 || x->type == 8) {
                                 num++;
                             }
                         }
-                        printf("%d", num);
+                        //fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
                         s->tokensize = num;
                         for(int i=0; i<5; i++) {
                             if(!strcmp(t->lexemename, datatype[i])) {
@@ -109,6 +121,9 @@ void parser(FILE* fr, FILE* fw) {
                         else s->scope = 'L';
                         INSERT(ptrToObjToken(s));
 
+                    }
+                    else {
+                        fprintf(fw, "%c%s%c%d%c%d%c%s%c\n", '<', x->lexemename, ',', x->rw, ',', x->cl, ',', type[x->type-1], '>');
                     }
 
 

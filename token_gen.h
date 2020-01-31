@@ -84,7 +84,7 @@ token* getNextToken(FILE* f){
 		else return makeToken(buf, row, col-len+1, 2, len);
 	}
  
-	else if(c == '+' || c == '-' || isdigit(c)){
+	else if(isdigit(c)){
 		
         int exp_flag = 0;
 		buf[len++] = c;
@@ -151,12 +151,25 @@ token* getNextToken(FILE* f){
             buf[len] = '\0';
             return makeToken(buf, row, col-len+1, 8, len);
         }
-        else{
-            if(c == '+' || c == '-') buf[len++];
-            else retract(f);
-            buf[len] = '\0';
-            return makeToken(buf, row, col-len+1, 5, len);
-        }
+		else {
+			buf[len] = '\0';
+			retract(f);
+			return makeToken(buf, row, col-len+1, 8, len);
+		}
+        
+	}
+	else if(c == '+' || c == '-') {
+		buf[len++] = c;
+		c = getc(f);
+		col++;
+		if( c == '+' || c == '-') {
+			buf[len++] = c;
+			buf[len] = '\0';
+			return makeToken(buf, row, col-len+1, 17, len);
+		}
+		retract(f);
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 5, len);
 	}
 
     else if(c == '\"'){
@@ -298,4 +311,5 @@ token* getNextToken(FILE* f){
 14: FUNC
 15: [
 16: ]
+17: crement
 */
