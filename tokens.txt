@@ -1,27 +1,31 @@
-<int,1,1,1>
-<c,1,5,2>
-<;,1,6,7>
-<double,2,1,1>
-<g,2,8,2>
-<;,2,9,7>
-<float,3,1,1>
-<h,3,7,2>
-<(,3,9,10>
-<int,3,10,1>
-<float,3,17,1>
-<),3,25,11>
-<int,5,1,1>
-<main,5,5,2>
-<(,5,10,10>
-<),5,12,11>
-<int,6,5,1>
-<arr,6,9,2>
-<[,6,13,15>
-<;,6,30,7>
-<float,7,5,1>
-<a,7,11,2>
-<=,7,13,4>
-<0x123,7,16,8>
-<int,8,5,1>
-<b,8,9,2>
-<;,8,10,7>
+<int,1,1,KEYWORD>
+<main,1,5,IDENTIFIER>
+<(,1,10,LR>
+<),1,12,RR>
+<int,2,5,KEYWORD>
+<a,2,9,IDENTIFIER>
+<=,2,11,ASSIGNMENT>
+<10,2,13,NUMBER>
+<;,2,15,SPEC. SYM.>
+<for,3,5,KEYWORD>
+<(,3,9,LR>
+<int,3,10,KEYWORD>
+<i,3,14,IDENTIFIER>
+<=,3,15,ASSIGNMENT>
+<0,3,16,ARITHMETIC>
+<;,3,17,SPEC. SYM.>
+<i,3,19,IDENTIFIER>
+<<,3,20,RELATIONAL>
+<10,3,21,NUMBER>
+<;,3,23,SPEC. SYM.>
+<i,3,25,IDENTIFIER>
+<+,3,26,ARITHMETIC>
+<),3,29,RR>
+<j,4,5,IDENTIFIER>
+<=,4,7,ASSIGNMENT>
+<10,4,9,NUMBER>
+<;,4,11,SPEC. SYM.>
+<i,5,5,IDENTIFIER>
+<<=,5,7,RELATIONAL>
+<10,5,10,NUMBER>
+<;,5,12,SPEC. SYM.>

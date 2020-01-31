@@ -17,7 +17,7 @@ void Initialize() {
 }
 
 void Display(){
-	printf("Name\tType\tSize\tRet Type\tScope\tArgs\tArgsName\n");
+	printf("Name\t\tType\t\tSize\t\tRet Type\tScope\t\tArgs\t\tArgsName\n");
 	for(int i=0; i<80; i++) {
 		printf("-");
 	}
@@ -27,7 +27,7 @@ void Display(){
 		if(ele == NULL)
 			continue;
 		while(ele) {
-			printf("%s\t%s\t%d\t%s\t\t%c\t%d\t%s\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no, ele->tok.arg_name == NULL? "No args" :ele->tok.arg_name );
+			printf("%s\t\t%s\t\t%d\t\t%s\t\t%c\t\t%d\t\t%s\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no, ele->tok.arg_name == NULL? "No args" :ele->tok.arg_name );
 			ele = ele->next;
 		}
 	}
@@ -74,7 +74,7 @@ void INSERT(token tk) {
 			ele = ele->next;
 		ele->next = cur;
 	}
-	printf("Value inserted %s\n", TABLE[val]->tok.lexemename);
+	//printf("Value inserted %s\n", TABLE[val]->tok.lexemename);
 }
 
 token ptrToObjToken(token *tk) {
