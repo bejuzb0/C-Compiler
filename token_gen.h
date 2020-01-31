@@ -1,14 +1,18 @@
 #include <stdlib.h>
 #include <ctype.h>
-typedef struct A{
-
+#include <stdio.h>
+typedef struct A {
 	char* lexemename;
-	unsigned int row, col;
+	unsigned int rw, cl;
 	unsigned int type;
+	char *typestr;
+	char *retType;
+	int tokensize;
+	char scope;
+	int arg_no;
+} token;
 
-}token;
-
-char TABLE[32][15] = {	"auto", "break", "case", "char", "const",
+char keyword[32][15] = {	"auto", "break", "case", "char", "const",
 							"continue", "default", "do", "double", "else",
 							"enum", "extern", "float", "for", "goto",
 							"if", "int", "long", "register", "return",
@@ -17,9 +21,9 @@ char TABLE[32][15] = {	"auto", "break", "case", "char", "const",
 
 int check(char str[]){
 	for(int i=0;i<32;i++){
-		if(strlen(str)!=strlen(TABLE[i]))
+		if(strlen(str)!=strlen(keyword[i]))
 			continue;
-		else if(!strcmp(str, TABLE[i]))
+		else if(!strcmp(str, keyword[i]))
 			return i;
 	}
 	return -1;
@@ -37,9 +41,13 @@ token* makeToken(char name[], int r, int c, int type, int len){
     token* t = (token*)malloc(sizeof(token));
     t->lexemename = (char*)malloc(len*sizeof(char));
     strcpy(t->lexemename, name);
-    t->row = r;
-	t->col = c;
+    t->rw = r;
+	t->cl = c;
     t->type = type;
+	t->arg_no = -99;
+	t->typestr = '\0';
+	t->tokensize = -99;
+	t->retType = '\0';
     return t;
 }
 
@@ -135,6 +143,34 @@ token* getNextToken(FILE* f){
 		return makeToken(buf, row, col-len+1, 9, len);
     }
 
+	else if(c == '('){
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 10, len);
+    }
+
+    else if(c == ')'){
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 11, len);
+    }
+
+    else if(c == '{'){
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 12, len);
+    }
+
+    else if(c == '}'){
+		col++;
+		buf[len++] = c;
+		buf[len] = '\0';
+		return makeToken(buf, row, col-len+1, 13, len);
+    }
+
 	else if(c == '='){
         c = getc(f);
         col++;
@@ -213,4 +249,9 @@ token* getNextToken(FILE* f){
 7: spec sym
 8: number
 9: string
+10: (
+11: )
+12: {
+13: }
+14: FUNC
 */

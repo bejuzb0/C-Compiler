@@ -1,6 +1,6 @@
 #include "rem_prepndel.h"
-#include "token_gen.h"
 #include <stdlib.h>
+#include "parser.h"
 
 int main() {
     FILE* fr = fopen("try.c", "rw");
@@ -30,16 +30,7 @@ int main() {
 		exit(0);
 	}
 	fw = fopen("tokens.txt", "w");
-	
-	for(;;){
-		token* t = getNextToken(fr);
-		if(t->type==-1)
-			break;
-		else if(t->type == 0)
-			continue;
-		else
-			fprintf(fw, "%c%s%c%d%c%d%c%d%c\n", '<', t->lexemename, ',', t->row, ',', t->col, ',', t->type, '>');
-	}
-
-
+    parser(fr, fw);
+    fclose(fr);
+    fclose(fw);
 }
