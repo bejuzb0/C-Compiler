@@ -1,28 +1,26 @@
 <int,1,1,KEYWORD>
 <c,1,5,IDENTIFIER>
 <;,1,6,SPEC. SYM.>
-<float,2,1,KEYWORD>
-<abc,2,7,IDENTIFIER>
-<(,2,11,LR>
-<int,2,12,KEYWORD>
-<int,2,19,KEYWORD>
-<),2,25,RR>
-<{,2,28,LC>
+<double,2,1,KEYWORD>
+<sqrt,2,8,IDENTIFIER>
+<(,2,13,LR>
+<double,2,14,KEYWORD>
+<),2,23,RR>
+<{,2,26,LC>
 <},4,2,RC>
 <int,5,1,KEYWORD>
 <main,5,5,IDENTIFIER>
 <(,5,10,LR>
 <),5,12,RR>
-<{,5,15,LC>
+<{,5,14,LC>
 <int,6,5,KEYWORD>
 <a,6,9,IDENTIFIER>
-<[,6,11,LS>
-<],6,13,RS>
-<=,6,15,ASSIGNMENT>
-<{,6,18,LC>
-<1,6,19,NUMBER>
-<2,6,21,NUMBER>
-<3,6,23,NUMBER>
-<},6,25,RC>
-<;,6,26,SPEC. SYM.>
-<},7,2,RC>
+<;,6,10,SPEC. SYM.>
+<a,7,5,IDENTIFIER>
+<=,7,7,ASSIGNMENT>
+<10,7,9,NUMBER>
+<;,7,11,SPEC. SYM.>
+<float,8,5,KEYWORD>
+<b,8,11,IDENTIFIER>
+<;,8,12,SPEC. SYM.>
+<},9,2,RC>
