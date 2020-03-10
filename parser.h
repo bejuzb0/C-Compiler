@@ -13,9 +13,14 @@ void parser(FILE* fr, FILE* fw) {
     for(;;) {
         token *s,*t,*u,*v,*w,*x, *y;
 		t = getNextToken(fr);
+<<<<<<< HEAD
 		if(t->type==-1) {
 			break;
         }
+=======
+		if(t->type==-1)
+			break;
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		else if(t->type == 0)
 			continue;
         else if(t->type == 12) {
@@ -42,12 +47,18 @@ void parser(FILE* fr, FILE* fw) {
                     memset(buff, '\0', 50);
                     
                     while((v = getNextToken(fr)) && v->type != 11) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
                         if(v->type == 0)
                             continue;
                         writefile(v, fw);
                         while((w = getNextToken(fr)) && w->type ==0);
+<<<<<<< HEAD
 						writefile(w, fw);
+=======
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
                         for(int i=0; i<5; i++) {
                             if(!strcmp(v->lexemename, datatype[i])) {
                                 w->typestr = v->lexemename;
@@ -164,8 +175,12 @@ void parser(FILE* fr, FILE* fw) {
         }
 			
 	}
+<<<<<<< HEAD
     row = 1;
     //Display();
+=======
+    Display();
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 }
 
 
@@ -187,4 +202,8 @@ void parser(FILE* fr, FILE* fw) {
 14: FUNC
 15: [
 16: ]
+<<<<<<< HEAD
 */
+=======
+*/
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c

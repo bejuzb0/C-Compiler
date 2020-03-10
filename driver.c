@@ -18,13 +18,21 @@ int main() {
     fclose(fw);
 
     fr = fopen("trywrite2.c", "r"); 
+<<<<<<< HEAD
     fw = fopen("trywrite3.c", "w");
+=======
+    fw = fopen("trywrite.c", "w");
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 
     rem_comment(fr, fw);
     fclose(fr);
     fclose(fw);
 
+<<<<<<< HEAD
     fr = fopen("trywrite3.c", "r");
+=======
+    fr = fopen("trywrite.c", "r");
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	if(fr == NULL){
 		printf("Cannot open file\n");
 		exit(0);
@@ -33,4 +41,8 @@ int main() {
     parser(fr, fw);
     fclose(fr);
     fclose(fw);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c

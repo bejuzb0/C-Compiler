@@ -18,7 +18,11 @@ void Initialize() {
 
 void Display(){
 	printf("Name\t\tType\t\tSize\t\tRet Type\tScope\t\tArgs\t\tArgsName\n");
+<<<<<<< HEAD
 	for(int i=0; i<100; i++) {
+=======
+	for(int i=0; i<80; i++) {
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		printf("-");
 	}
 	printf("\n");
@@ -27,7 +31,11 @@ void Display(){
 		if(ele == NULL)
 			continue;
 		while(ele) {
+<<<<<<< HEAD
 			printf("%s\t\t%s\t\t%d\t\t%s\t\t%c\t\t%d\t\t%s\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no, ele->tok.arg_name );
+=======
+			printf("%s\t\t%s\t\t%d\t\t%s\t\t%c\t\t%d\t\t%s\n", ele->tok.lexemename, ele->tok.typestr, ele->tok.tokensize, ele->tok.retType, ele->tok.scope, ele->tok.arg_no, ele->tok.arg_name == NULL? "No args" :ele->tok.arg_name );
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 			ele = ele->next;
 		}
 	}
@@ -80,7 +88,10 @@ void INSERT(token tk) {
 token ptrToObjToken(token *tk) {
     token t;
     t.lexemename = tk->lexemename;
+<<<<<<< HEAD
     t.nametype = tk->nametype;
+=======
+>>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     t.rw = tk->rw;
     t.cl = tk->cl;
     t.type = tk->type;
