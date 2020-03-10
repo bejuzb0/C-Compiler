@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
-<<<<<<< HEAD
 #include <string.h>
-=======
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 typedef struct A {
 	char* lexemename;
 	unsigned int rw, cl;
@@ -15,10 +12,7 @@ typedef struct A {
 	char scope;
 	int arg_no;
 	char *arg_name;
-<<<<<<< HEAD
 	char* nametype;
-=======
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 } token;
 
 char keyword[32][15] = {	"auto", "break", "case", "char", "const",
@@ -38,19 +32,14 @@ int check(char str[]){
 	return -1;
 }
 
-<<<<<<< HEAD
 int row=1;
 int col=0;
-=======
-int row=1, col=0;
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 
 void retract(FILE* f){
     fseek(f, -1, SEEK_CUR);
     col--;
 }
 
-<<<<<<< HEAD
 token* makeToken(char name[], int r, int c, int type, int len, char nametype[]){
 	
     token* t = (token*)malloc(sizeof(token));
@@ -59,13 +48,6 @@ token* makeToken(char name[], int r, int c, int type, int len, char nametype[]){
     memset(t->nametype, '\0', 50);
     strcpy(t->lexemename, name);
     t->nametype = nametype;
-=======
-token* makeToken(char name[], int r, int c, int type, int len){
-	
-    token* t = (token*)malloc(sizeof(token));
-    t->lexemename = (char*)malloc(len*sizeof(char));
-    strcpy(t->lexemename, name);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     t->rw = r;
 	t->cl = c;
     t->type = type;
@@ -84,7 +66,6 @@ token* getNextToken(FILE* f){
 
 	char c = getc(f);
 	col++;
-<<<<<<< HEAD
 	if(c == '\'') {
 		col++;
 		buf[len++] = c;
@@ -117,16 +98,6 @@ token* getNextToken(FILE* f){
     }
  
     else if(isalpha(c) || c=='_'){
-=======
-
-	if(c == EOF)
-		return makeToken(buf, 0, 0, -1, 0);
-	if( c == ',')
-		return makeToken(buf, 0, 0, 0, 0);
-    
- 
-    if(isalpha(c) || c=='_'){
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		
 		buf[len++] = c;
 		c = getc(f);
@@ -139,13 +110,8 @@ token* getNextToken(FILE* f){
 		retract(f);
 		buf[len] = '\0';
 		int l = check(buf);
-<<<<<<< HEAD
 		if(l!=-1) return makeToken(buf, row, col-len+1, 1, len, "ID");
 		else return makeToken(buf, row, col-len+1, 2, len, "KW");
-=======
-		if(l!=-1) return makeToken(buf, row, col-len+1, 1, len);
-		else return makeToken(buf, row, col-len+1, 2, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
  
 	else if(isdigit(c)){
@@ -165,11 +131,7 @@ token* getNextToken(FILE* f){
 					c = getc(f);
 				}
 				buf[len] = '\0';
-<<<<<<< HEAD
 				return makeToken(buf, row, col-len+1, 8, len, "NUMBER");
-=======
-				return makeToken(buf, row, col-len+1, 8, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 			}
 
             while(isdigit(c)){
@@ -217,20 +179,12 @@ token* getNextToken(FILE* f){
             }
             retract(f);
             buf[len] = '\0';
-<<<<<<< HEAD
             return makeToken(buf, row, col-len+1, 8, len, "NUMBER");
-=======
-            return makeToken(buf, row, col-len+1, 8, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
         }
 		else {
 			buf[len] = '\0';
 			retract(f);
-<<<<<<< HEAD
 			return makeToken(buf, row, col-len+1, 8, len, "NUMBER");
-=======
-			return makeToken(buf, row, col-len+1, 8, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		}
         
 	}
@@ -241,19 +195,11 @@ token* getNextToken(FILE* f){
 		if( c == '+' || c == '-') {
 			buf[len++] = c;
 			buf[len] = '\0';
-<<<<<<< HEAD
 			return makeToken(buf, row, col-len+1, 17, len, "CREMENT");
 		}
 		retract(f);
 		buf[len] = '\0';
 		return makeToken(buf, row, col-len+1, 5, len, "ARITHMETIC");
-=======
-			return makeToken(buf, row, col-len+1, 17, len);
-		}
-		retract(f);
-		buf[len] = '\0';
-		return makeToken(buf, row, col-len+1, 5, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
     else if(c == '\"'){
@@ -265,77 +211,49 @@ token* getNextToken(FILE* f){
 			col++;
 		}
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 9, len, "STRING");
-=======
-		return makeToken(buf, row, col-len+1, 9, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     }
 
 	else if(c == '('){
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 10, len, "LR");
-=======
-		return makeToken(buf, row, col-len+1, 10, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     }
 
 	else if(c == '[') {
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 15, len, "LS");
-=======
-		return makeToken(buf, row, col-len+1, 15, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
 	else if(c == ']') {
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 16, len, "RS");
-=======
-		return makeToken(buf, row, col-len+1, 16, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
     else if(c == ')'){
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 11, len, "RR");
-=======
-		return makeToken(buf, row, col-len+1, 11, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     }
 
     else if(c == '{'){
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 12, len, "LC");
-=======
-		return makeToken(buf, row, col-len+1, 12, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     }
 
     else if(c == '}'){
 		col++;
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 13, len, "RC");
-=======
-		return makeToken(buf, row, col-len+1, 13, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
     }
 
 	else if(c == '='){
@@ -343,20 +261,12 @@ token* getNextToken(FILE* f){
         col++;
 		if(c == '='){
 			strcpy(buf, "==");
-<<<<<<< HEAD
             return makeToken(buf, row, col-2+1, 3, 2, "EQUALS");
-=======
-            return makeToken(buf, row, col-2+1, 3, 2);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		}
 		else{
             retract(f);
 			strcpy(buf, "=");
-<<<<<<< HEAD
             return makeToken(buf, row, col-1+1, 4, 1, "ASSIGNMENT");
-=======
-            return makeToken(buf, row, col-1+1, 4, 1);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 		}
 	}
 
@@ -368,21 +278,13 @@ token* getNextToken(FILE* f){
 			buf[len++] = c;
         else retract(f);
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 3, len, "RELOP");
-=======
-		return makeToken(buf, row, col-len+1, 3, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
 	else if(c == '*' || c == '/' || c == '%'){
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 5, len, "ARITHMETIC");
-=======
-		return makeToken(buf, row, col-len+1, 5, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
 	else if(c == '|' || c == '&'){
@@ -392,17 +294,12 @@ token* getNextToken(FILE* f){
 		if(c == '&' || c == '|') buf[len++] = c;
         else retract(f);
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 6, len, "LOGICAL");
-=======
-		return makeToken(buf, row, col-len+1, 6, len);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 	}
 
 	else if(!isalpha(c) && !isdigit(c) && c!='\n' && c!='\t' && c!=' '){
 		buf[len++] = c;
 		buf[len] = '\0';
-<<<<<<< HEAD
 		return makeToken(buf, row, col-len+1, 7, len, "SS");	
 	}
 	else if(c == '\n') {
@@ -428,30 +325,6 @@ token* getNextToken(FILE* f){
 		return makeToken(buf ,0, 0, 0, 0, "SOMETHINGELSE");
 	}*/
 
-=======
-		return makeToken(buf, row, col-len+1, 7, len);	
-	}
-
-	else if(c == '\n'){
-		row++;
-		col = 0;
-		return makeToken(buf, 0, 0, 0, 0);
-	}
-	else if(c == '\t'){
-		col += 3;
-		return makeToken(buf, 0, 0, 0, 0);
-	}
-	else if(c == ' ')
-		return makeToken(buf, 0, 0, 0, 0);
-	else c = getc(f);
-
-	if(c == EOF)
-		return makeToken(buf, 0, 0, -1, 0);
-	else
-		retract(f);
-
-	return makeToken(buf ,0, 0, 0, 0);
->>>>>>> ddc9e83b9fefc177d69624bbc4e88d2d324b5b4c
 }
 
 /*
